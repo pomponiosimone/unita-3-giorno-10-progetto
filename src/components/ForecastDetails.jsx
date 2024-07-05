@@ -31,11 +31,10 @@ const ForecastDetails = () => {
   useEffect(() => {
     const fetchForecast = async () => {
       try {
-        const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=d2c89203a18a10282baa4d4d305eba98`;
+        const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=397548b42e37257d1c589924b47426ae`;
         const forecastResponse = await fetch(forecastUrl);
         const forecastData = await forecastResponse.json();
 
-        
         const groupedForecasts = {};
         forecastData.list.forEach(item => {
           const date = new Date(item.dt_txt);
@@ -49,11 +48,9 @@ const ForecastDetails = () => {
           }
         });
 
-        
-        const processedForecast = Object.values(groupedForecasts).slice(0, 10);
+        const processedForecast = Object.values(groupedForecasts).slice(0, 5);
 
-        
-        while (processedForecast.length < 10) {
+        while (processedForecast.length < 5) {
           const lastForecast = processedForecast[processedForecast.length - 1];
           processedForecast.push({...lastForecast});
         }

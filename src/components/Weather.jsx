@@ -39,7 +39,7 @@ const Weather = () => {
       return;
     }
     try {
-      const geoUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=d2c89203a18a10282baa4d4d305eba98`;
+      const geoUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=397548b42e37257d1c589924b47426ae`;
       const geoResponse = await fetch(geoUrl);
       const geoData = await geoResponse.json();
 
@@ -49,7 +49,7 @@ const Weather = () => {
       }
 
       const { lat, lon } = geoData[0];
-      const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=d2c89203a18a10282baa4d4d305eba98`;
+      const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=397548b42e37257d1c589924b47426ae`;
       const weatherResponse = await fetch(weatherUrl);
       const weatherData = await weatherResponse.json();
 
@@ -63,7 +63,7 @@ const Weather = () => {
         icon: icon,
       });
 
-      const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=d2c89203a18a10282baa4d4d305eba98`;
+      const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=397548b42e37257d1c589924b47426ae`;
       const forecastResponse = await fetch(forecastUrl);
       const forecastData = await forecastResponse.json();
 
