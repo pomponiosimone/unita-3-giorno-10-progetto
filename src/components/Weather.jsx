@@ -46,7 +46,7 @@ const Weather = () => {
       const geoData = await geoResponse.json();
 
       if (geoData.length === 0) {
-        setError('City not found');
+        alert('Città non trovata o inesistente');
         return;
       }
 

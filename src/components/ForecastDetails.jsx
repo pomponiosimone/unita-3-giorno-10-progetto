@@ -48,9 +48,9 @@ const ForecastDetails = () => {
           }
         });
 
-        const processedForecast = Object.values(groupedForecasts).slice(0, 5);
+        const processedForecast = Object.values(groupedForecasts).slice(0, 3);
 
-        while (processedForecast.length < 5) {
+        while (processedForecast.length < 3) {
           const lastForecast = processedForecast[processedForecast.length - 1];
           processedForecast.push({...lastForecast});
         }
