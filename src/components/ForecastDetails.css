@@ -36,3 +36,18 @@
     
     
 }
+.home-link {
+    display: block;
+    margin-top: 20px;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    background-color: #007bff;
+    padding: 10px 20px;
+    border-radius: 5px;
+   
+  }
+  
+  .home-link:hover {
+    background-color: #0056b3;
+  }

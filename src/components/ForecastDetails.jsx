@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import clear from '../assets/clear.png';
 import cloud from '../assets/cloud.png';
 import drizzle from '../assets/drizzle.png';
@@ -31,17 +31,17 @@ const ForecastDetails = () => {
   useEffect(() => {
     const fetchForecast = async () => {
       try {
-        const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=88d9d8245df34d4f71c2bfa0214624d9`;
+        const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=metric&appid=88d9d8245df34d4f71c2bfa0214624d9`;
         const forecastResponse = await fetch(forecastUrl);
         const forecastData = await forecastResponse.json();
 
         const groupedForecasts = {};
         forecastData.list.forEach(item => {
           const date = new Date(item.dt_txt);
-          const formattedDate = `${date.getDate()} ${date.toLocaleString('default', { month: 'short' })}`; 
+          const formattedDate = `${date.getDate()} ${date.toLocaleString('default', { month: 'short' })}`;
           if (!groupedForecasts[formattedDate]) {
             groupedForecasts[formattedDate] = {
-              temperature: Math.floor(item.main.temp / 10),
+              temperature: Math.floor(item.main.temp),
               icon: item.weather && item.weather[0] ? weatherIcons[item.weather[0].icon] || clear : clear,
               time: formattedDate,
             };
@@ -62,7 +62,7 @@ const ForecastDetails = () => {
     };
 
     fetchForecast();
-  }, [city, weatherIcons]);
+  }, [city]);
 
   return (
     <div className='container'>
@@ -76,6 +76,7 @@ const ForecastDetails = () => {
           </div>
         ))}
       </div>
+      <Link to="/" className="home-link">Torna alla Home</Link>
     </div>
   );
 };
