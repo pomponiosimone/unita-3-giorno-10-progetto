@@ -31,7 +31,7 @@ const ForecastDetails = () => {
   useEffect(() => {
     const fetchForecast = async () => {
       try {
-        const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=397548b42e37257d1c589924b47426ae`;
+        const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=88d9d8245df34d4f71c2bfa0214624d9`;
         const forecastResponse = await fetch(forecastUrl);
         const forecastData = await forecastResponse.json();
 
