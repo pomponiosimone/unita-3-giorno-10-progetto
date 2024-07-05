@@ -1,6 +1,9 @@
 .weather {
     place-self:center;
-    padding:20px;
+    padding-top:20px;
+    padding-left: 80px;
+padding-right: 80px;
+padding-bottom: 10px;
 
 border-radius:10px;
 background-image: linear-gradient(45deg, #2f4680, #0a19e4);
@@ -56,7 +59,7 @@ cursor: pointer;
 }
 .weather-data {
     width: 100%;
-    margin-left: 70px;
+    margin-left: 0px;
     margin-top: 20px;
     color: #fff;
     display: flex;
@@ -72,21 +75,6 @@ cursor: pointer;
     font-size: 17px;
 }
 
-.forecast {
-    margin-top: 15px;
-    padding: 30px;
-    display: flex;
-    border-top: 4px solid white;
-    border-radius: 30px;
-   
-
-}
-.forecast img {
-    width: 60px;
-}
-.forecast p {
-    color: white
-}
-.forecast-item {
-    margin-left: 20px;
+button {
+    margin-top:20px;
 }

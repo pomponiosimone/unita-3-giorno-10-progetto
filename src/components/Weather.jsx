@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import search from '../assets/search.png';
 import clear from '../assets/clear.png';
 import humidity from '../assets/humidity.png';
@@ -13,6 +14,7 @@ const Weather = () => {
   const inputRef = useRef();
   const [weatherData, setWeatherData] = useState(null);
   const [forecastData, setForecastData] = useState([]);
+  const [showForecast, setShowForecast] = useState(false); // State to manage showing forecast
 
   const allIcons = {
     "01d": clear,
@@ -37,7 +39,7 @@ const Weather = () => {
       return;
     }
     try {
-      const geoUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=88d9d8245df34d4f71c2bfa0214624d9`;
+      const geoUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=d2c89203a18a10282baa4d4d305eba98`;
       const geoResponse = await fetch(geoUrl);
       const geoData = await geoResponse.json();
 
@@ -47,7 +49,7 @@ const Weather = () => {
       }
 
       const { lat, lon } = geoData[0];
-      const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=88d9d8245df34d4f71c2bfa0214624d9`;
+      const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=d2c89203a18a10282baa4d4d305eba98`;
       const weatherResponse = await fetch(weatherUrl);
       const weatherData = await weatherResponse.json();
 
@@ -61,7 +63,7 @@ const Weather = () => {
         icon: icon,
       });
 
-      const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=88d9d8245df34d4f71c2bfa0214624d9`;
+      const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=d2c89203a18a10282baa4d4d305eba98`;
       const forecastResponse = await fetch(forecastUrl);
       const forecastData = await forecastResponse.json();
 
@@ -77,6 +79,11 @@ const Weather = () => {
       console.error('Error fetching weather data:', error);
     }
   };
+  
+
+  const toggleForecast = () => {
+    setShowForecast(!showForecast);
+  };
 
   useEffect(() => {
     searchCity("Roma");
@@ -91,9 +98,12 @@ const Weather = () => {
         </div>
         {weatherData && (
           <>
-            <img src={weatherData.icon} alt="weather-icon" className="weather-icon" />
-            <p className="temperature">{weatherData.temperature}°C</p>
-            <p className="location">{weatherData.location}</p>
+            
+            <Link to={`/forecast/${weatherData.location}`} className="weather-link">
+              <img src={weatherData.icon} alt="weather-icon" className="weather-icon" />
+              <p className="temperature">{weatherData.temperature}°C</p>
+              <p className="location">{weatherData.location}</p>
+            </Link>
             <div className="weather-data">
               <div className="col">
                 <img src={humidity} alt="humidity" />
@@ -110,19 +120,21 @@ const Weather = () => {
                 </div>
               </div>
             </div>
-          </>
-        )}
-
-        {forecastData.length > 0 && (
-          <div className="forecast">
-            {forecastData.map((forecast, index) => (
-              <div key={index} className="forecast-item">
-                <p>{forecast.time}</p>
-                <img src={forecast.icon} alt="forecast-icon" />
-                <p>{forecast.temperature}°C</p>
+           
+            <button onClick={toggleForecast}>{showForecast ? 'Chiudi previsioni' : 'Mostra previsioni prossimi 5 giorni'}</button>
+            
+            {showForecast && (
+              <div className="forecast">
+                {forecastData.map((forecast, index) => (
+                  <div key={index} className="forecast-item">
+                    <p>{forecast.time}</p>
+                    <img src={forecast.icon} alt="forecast-icon" />
+                    <p>{forecast.temperature}°C</p>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            )}
+          </>
         )}
       </div>
     </div>
