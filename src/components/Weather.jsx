@@ -10,10 +10,10 @@ import wind from '../assets/wind.png';
 import './Weather.css';
 
 const Weather = () => {
- 
   const inputRef = useRef();
   const [weatherData, setWeatherData] = useState(null);
-  
+  const [forecastData, setForecastData] = useState([]);
+
   const allIcons = {
     "01d": clear,
     "01n": clear,
@@ -32,8 +32,8 @@ const Weather = () => {
   };
 
   const searchCity = async (city) => {
-    if(city === "") {
-      alert("inserisci il nome di una città per visualizzare il meteo")
+    if (city === "") {
+      alert("Inserisci il nome di una città per visualizzare il meteo");
       return;
     }
     try {
@@ -60,6 +60,19 @@ const Weather = () => {
         location: weatherData.name,
         icon: icon,
       });
+
+      const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=88d9d8245df34d4f71c2bfa0214624d9`;
+      const forecastResponse = await fetch(forecastUrl);
+      const forecastData = await forecastResponse.json();
+
+      const processedForecast = forecastData.list.map(item => ({
+        temperature: Math.floor(item.main.temp / 10),
+        icon: allIcons[item.weather[0].icon] || clear,
+        time: new Date(item.dt_txt).toLocaleDateString('it-IT', { day: 'numeric', month: 'short' }), 
+      })).filter((item, index) => index % 8 === 0); 
+
+      setForecastData(processedForecast);
+
     } catch (error) {
       console.error('Error fetching weather data:', error);
     }
@@ -98,6 +111,18 @@ const Weather = () => {
               </div>
             </div>
           </>
+        )}
+
+        {forecastData.length > 0 && (
+          <div className="forecast">
+            {forecastData.map((forecast, index) => (
+              <div key={index} className="forecast-item">
+                <p>{forecast.time}</p>
+                <img src={forecast.icon} alt="forecast-icon" />
+                <p>{forecast.temperature}°C</p>
+              </div>
+            ))}
+          </div>
         )}
       </div>
     </div>

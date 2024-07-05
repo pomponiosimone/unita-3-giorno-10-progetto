@@ -1,6 +1,6 @@
 .weather {
     place-self:center;
-    padding:70px;
+    padding:20px;
 
 border-radius:10px;
 background-image: linear-gradient(45deg, #2f4680, #0a19e4);
@@ -17,6 +17,7 @@ align-items: center;
 
 }
 .search-bar input {
+    margin-top: 20px;
     height:50px;
     border: none;
     outline: none;
@@ -28,6 +29,7 @@ font-size:18px;
 
 }
 .search-bar img { width: 50px;
+    margin-top: 20px;
 padding:15px;
 border-radius: 50%;
 background: #ebfffc;
@@ -54,10 +56,11 @@ cursor: pointer;
 }
 .weather-data {
     width: 100%;
-    margin-top: 40px;
+    margin-left: 70px;
+    margin-top: 20px;
     color: #fff;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
 
 
 }
@@ -67,4 +70,23 @@ cursor: pointer;
     align-items: flex-start;
     gap:10px;
     font-size: 17px;
+}
+
+.forecast {
+    margin-top: 15px;
+    padding: 30px;
+    display: flex;
+    border-top: 4px solid white;
+    border-radius: 30px;
+   
+
+}
+.forecast img {
+    width: 60px;
+}
+.forecast p {
+    color: white
+}
+.forecast-item {
+    margin-left: 20px;
 }
