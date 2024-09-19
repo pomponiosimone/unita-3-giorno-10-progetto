@@ -41,7 +41,7 @@ const Weather = () => {
     }
 
     try {
-      const geoUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=88d9d8245df34d4f71c2bfa0214624d9`;
+      const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=88d9d8245df34d4f71c2bfa0214624d9`;
       const geoResponse = await fetch(geoUrl);
       const geoData = await geoResponse.json();
 
@@ -88,7 +88,7 @@ const Weather = () => {
   };
 
   useEffect(() => {
-    searchCity("Roma");
+    searchCity("Londra");
   }, []);
 
   return (
